@@ -17,7 +17,6 @@ export const getToken = async () => {
         }
       }
     )
-    console.log(response.data);
     return response.data.access_token;
   } catch (error) {
     console.log('Error while generating a token', error)
@@ -37,5 +36,21 @@ export const newReleases = async ({token}) => {
     return response.data;
   } catch (error) {
     console.log('Error while getting new release', error)
+  }
+}
+
+// Get multiple artists
+export const getArtists = async ({token}) => {
+  try {
+    const response = await axios.get(`${baseUrl}artists?ids=6qqNVTkY8uBg9cP3Jd7DAH,74KM79TiuVKeVCqs8QtB0B,66CXWjxzNUsdJxJ2JdwvnR,1uNFoZAHBGtllmzznpCI3s,26VFTg2z8YR0cCuwLzESi2,6eUKZXaKkcviH0Ku9w2n3V,4dpARuHxo51G3z768sgnrY,5pKCCKE2ajJHZ9KAiaK11H,6vWDO969PvNqNYHIOW5v0m,2dIgFjalVxs4ThymZ67YCE,3Nrfpe0tUJi4K4DXYWgMUX,41MozSoPIsD1dJM0CLPjZF,6HaGTQPmzraVmaVxvz6EUc,3eVa5w3URK5duf6eyVDbu9`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log('Error while getting multiple artists', error)
   }
 }
