@@ -81,9 +81,24 @@ export const getArtistTopTrakcs = async ({token, id}) => {
         }
       }
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
-    console.log('Error while getting artist top tracks')
+    console.log('Error while getting artist top tracks', error)
+  }
+}
+
+// Get artist albums
+export const getArtistAlbums = async ({token, id}) => {
+  try {
+    const response = await axios.get(`${baseUrl}artists/${id}/albums`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log('Error while getting artist album', error)
   }
 }
