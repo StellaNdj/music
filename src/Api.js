@@ -54,3 +54,36 @@ export const getArtists = async ({token}) => {
     console.log('Error while getting multiple artists', error)
   }
 }
+
+// Get artist infos
+export const getArtist = async ({token, id}) => {
+  try {
+    const response = await axios.get(`${baseUrl}artists/${id}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log('Error while getting artist infos', error)
+  }
+}
+
+// Get artist top tracks
+export const getArtistTopTrakcs = async ({token, id}) => {
+  try {
+    const response = await axios.get(`${baseUrl}artists/${id}/top-tracks`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log('Error while getting artist top tracks')
+  }
+}
