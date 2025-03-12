@@ -67,7 +67,7 @@ const Home = () => {
               <SwiperSlide key={album.id} className="w-auto">
                 <img src={album.images[0].url} alt={album.name} className="rounded-lg w-20 md:w-30 lg:w-40" />
                 <p className='font-bold text-sm'>{limitChar(album.name, 10)}</p>
-                <p className='text-xs'>{album.artists[0].name}</p>
+                <p className='text-xs' onClick={() => goToArtist(album.artists[0].id)}>{album.artists[0].name}</p>
               </SwiperSlide>
             ))}
           </Swiper>
