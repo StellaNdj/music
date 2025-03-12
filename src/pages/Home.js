@@ -43,6 +43,10 @@ const Home = () => {
     navigate(`artist/${id}`);
   }
 
+  const goToAlbum = (id) => {
+    navigate(`album/${id}`)
+  }
+
   if (!newReleasesData) return <p>Loading...</p>
 
   return (
@@ -64,7 +68,7 @@ const Home = () => {
             scrollbar={{ draggable: true }}
           >
             {newReleasesData.map((album) => (
-              <SwiperSlide key={album.id} className="w-auto">
+              <SwiperSlide key={album.id} className="w-auto" onClick={() => goToAlbum(album.id)}>
                 <img src={album.images[0].url} alt={album.name} className="rounded-lg w-20 md:w-30 lg:w-40" />
                 <p className='font-bold text-sm'>{limitChar(album.name, 10)}</p>
                 <p className='text-xs' onClick={() => goToArtist(album.artists[0].id)}>{album.artists[0].name}</p>

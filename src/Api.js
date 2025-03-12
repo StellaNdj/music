@@ -104,7 +104,7 @@ export const getArtistAlbums = async ({token, id}) => {
 }
 
 // Get album infos
-export const getRelatedArtists = async ({token, id}) => {
+export const getAlbum = async ({token, id}) => {
   try {
     const response = await axios.get(`${baseUrl}albums/${id}`,
       {
@@ -113,7 +113,6 @@ export const getRelatedArtists = async ({token, id}) => {
         }
       }
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log('Error while getting album infos', error)
