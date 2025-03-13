@@ -70,7 +70,6 @@ const Artist = () => {
           <div className="relative z-10 p-6 text-white">
             <h2 className="font-bold text-6xl">{artist.name}</h2>
             <p>{artist.followers.total.toLocaleString()} followers</p>
-            <p>{artist.popularity} popularity</p>
           </div>
         </div>
 

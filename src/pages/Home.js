@@ -72,7 +72,7 @@ const Home = () => {
                 <div className="flex justify-center">
                   <img src={album.images[0].url} alt={album.name} className="rounded-lg w-20 md:w-30 lg:w-40" />
                 </div>
-                <div className="ml-1">
+                <div className="ml-3">
                   <p className='font-bold text-sm cursor-pointer hover:underline'>{limitChar(album.name, 10)}</p>
                   <p className='text-xs cursor-pointer hover:underline' 
                     onClick={(e) =>{ 
@@ -108,7 +108,7 @@ const Home = () => {
                 <div className="flex justify-center">
                   <img src={artist.images[0].url} alt={artist.name} className="rounded-full w-20 md:w-30 lg:w-40" />
                 </div>
-                <div className="ml-1">
+                <div className="ml-3">
                   <p className='font-bold text-sm cursor-pointer hover:underline'>{artist.name}</p>
                 </div>
               </SwiperSlide>
