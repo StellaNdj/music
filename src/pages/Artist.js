@@ -58,23 +58,35 @@ const Artist = () => {
   return(
     <>
       <div className="h-screen overflow-auto pb-16">
-        {/* Artist infos */}
-        <h2 className='font-bold text-2xl'>{artist.name}</h2>
-        <p>{artist.followers.total} followers</p>
-        <p>{artist.popularity} popularity</p>
-        <img src={`${artist.images[0].url}`} alt={artist.name}/>
+        {/* Artist Banner */}
+        <div
+          className="w-full h-60 flex items-center bg-cover bg-center relative"
+          style={{ backgroundImage: `url(${artist.images[0].url})` }}
+        >
+          {/* Overlay to improve text readability */}
+          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
+          {/* Content Section */}
+          <div className="relative z-10 p-6 text-white">
+            <h2 className="font-bold text-6xl">{artist.name}</h2>
+            <p>{artist.followers.total.toLocaleString()} followers</p>
+            <p>{artist.popularity} popularity</p>
+          </div>
+        </div>
 
         {/* Artists top trakcs */}
         <div className='my-4'>
           <h2 className='text-2xl font-bold'>Top tracks</h2>
-          {topTracks.map((track, index) =>
-            <div key={track.id} className='flex'>
-              <p className='p-1'>{index + 1}</p>
-              <img src={`${track.album.images[0].url}`} alt={`${track.album.name}`} className='h-8'/>
-              <p className='font-bold'>{track.name}</p>
-              <p>{track.duration_ms / 60000}</p>
-            </div>
-          )}
+          <div className='p-2'>
+            {topTracks.map((track, index) =>
+              <div key={track.id} className='flex rounded-md cursor-pointer hover:bg-gray-300 p-1'>
+                <p className='p-1 font-bold'>{index + 1}</p>
+                <img src={`${track.album.images[0].url}`} alt={`${track.album.name}`} className='h-8 rounded-md'/>
+                <p className='font-bold'>{track.name}</p>
+                <p>{track.duration_ms / 60000}</p>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Artist albums */}

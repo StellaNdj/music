@@ -52,7 +52,7 @@ const Home = () => {
   return (
     <>
       <div className="mx-2">
-        <h1 className="font-bold text-center">Discover</h1>
+        <h1 className="font-bold text-center">Home</h1>
         <div className='my-2'>
           <h2 className='font-bold'>New Releases Tracks</h2>
           <Swiper
@@ -68,10 +68,19 @@ const Home = () => {
             scrollbar={{ draggable: true }}
           >
             {newReleasesData.map((album) => (
-              <SwiperSlide key={album.id} className="w-auto" onClick={() => goToAlbum(album.id)}>
-                <img src={album.images[0].url} alt={album.name} className="rounded-lg w-20 md:w-30 lg:w-40" />
-                <p className='font-bold text-sm'>{limitChar(album.name, 10)}</p>
-                <p className='text-xs' onClick={() => goToArtist(album.artists[0].id)}>{album.artists[0].name}</p>
+              <SwiperSlide key={album.id} className="w-auto rounded-md p-1 hover:bg-gray-300 cursor-pointer " onClick={() => goToAlbum(album.id)}>
+                <div className="flex justify-center">
+                  <img src={album.images[0].url} alt={album.name} className="rounded-lg w-20 md:w-30 lg:w-40" />
+                </div>
+                <div className="ml-1">
+                  <p className='font-bold text-sm cursor-pointer hover:underline'>{limitChar(album.name, 10)}</p>
+                  <p className='text-xs cursor-pointer hover:underline' 
+                    onClick={(e) =>{ 
+                    e.stopPropagation()
+                    goToArtist(album.artists[0].id)}}>
+                    {album.artists[0].name}
+                  </p>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -94,10 +103,14 @@ const Home = () => {
             {artists.map((artist) => (
               <SwiperSlide
                 key={artist.id}
-                className="w-auto flex flex-col items-center"
+                className="w-auto flex flex-col items-center rounded-md p-1 hover:bg-gray-300 cursor-pointer"
                 onClick={() => goToArtist(artist.id)}>
-                <img src={artist.images[0].url} alt={artist.name} className="rounded-full w-20 md:w-30 lg:w-40" />
-                <p className='font-bold text-sm'>{artist.name}</p>
+                <div className="flex justify-center">
+                  <img src={artist.images[0].url} alt={artist.name} className="rounded-full w-20 md:w-30 lg:w-40" />
+                </div>
+                <div className="ml-1">
+                  <p className='font-bold text-sm cursor-pointer hover:underline'>{artist.name}</p>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
