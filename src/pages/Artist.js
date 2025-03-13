@@ -75,15 +75,17 @@ const Artist = () => {
         </div>
 
         {/* Artists top trakcs */}
-        <div className='my-4 p-2'>
+        <div className='m-4 p-2'>
           <h2 className='text-2xl font-bold'>Top tracks</h2>
           <div className='p-2'>
             {topTracks.map((track, index) =>
-              <div key={track.id} className='flex rounded-md cursor-pointer hover:bg-gray-300 p-1'>
-                <p className='p-1 font-bold'>{index + 1}</p>
-                <img src={`${track.album.images[0].url}`} alt={`${track.album.name}`} className='h-8 rounded-md'/>
-                <p className='font-bold'>{track.name}</p>
-                {track.explicit ? <p>E</p> : ''}
+              <div key={track.id} className='flex rounded-md cursor-pointer hover:bg-gray-300 p-1 w-full'>
+                <p className='w-6 text-center font-bold'>{index + 1}</p>
+                <img src={`${track.album.images[0].url}`} alt={`${track.album.name}`} className='h-11   rounded-md'/>
+                <div className="ml-2 flex-1 min-w-0">
+                  <p className='font-bold truncate'>{track.name}</p>
+                  {track.explicit ? <p className="text-sm bg-gray-200 rounded-md w-fit px-2 ">E</p> : ''}
+                </div> 
                 <p>{(track.duration_ms / 60000).toFixed(2).replace('.', ':')}</p>
               </div>
             )}
@@ -91,7 +93,7 @@ const Artist = () => {
         </div>
 
         {/* Artist albums */}
-        <div className='my-4'>
+        <div className='m-4'>
         <h2 className='text-2xl font-bold'>Albums</h2>
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -107,9 +109,9 @@ const Artist = () => {
         >
           {albums.map((album) =>
             <SwiperSlide key={album.id}>
-              <img src={`${album.images[0].url}`} alt={`${album.name}`} className="h-20 rounded-lg"/>
+              <img src={`${album.images[0].url}`} alt={`${album.name}`} className="h-36 rounded-lg"/>
               <p>{limitChar(album.name, 20)}</p>
-              <div className='flex'>
+              <div className='flex text-sm'>
                 <p className='font-bold'>{album.release_date.slice(0,4)} · </p>
                 <p> {capitalizeFirst(album.album_type)}</p>
               </div>
