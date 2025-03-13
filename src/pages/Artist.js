@@ -35,6 +35,7 @@ const Artist = () => {
     const getArtistTopTracksInfos = async () => {
       const response = await getArtistTopTrakcs({id, token})
       if (response) {
+        console.log(response.tracks);
         setTopTracks(response.tracks);
       }
     };
@@ -42,7 +43,6 @@ const Artist = () => {
     const getArtistAlbumsInfos = async () => {
       const response = await getArtistAlbums({id, token})
       if (response) {
-        console.log(response.items);
         setAlbums(response.items);
       }
     };
@@ -75,7 +75,7 @@ const Artist = () => {
         </div>
 
         {/* Artists top trakcs */}
-        <div className='my-4'>
+        <div className='my-4 p-2'>
           <h2 className='text-2xl font-bold'>Top tracks</h2>
           <div className='p-2'>
             {topTracks.map((track, index) =>
@@ -83,7 +83,8 @@ const Artist = () => {
                 <p className='p-1 font-bold'>{index + 1}</p>
                 <img src={`${track.album.images[0].url}`} alt={`${track.album.name}`} className='h-8 rounded-md'/>
                 <p className='font-bold'>{track.name}</p>
-                <p>{track.duration_ms / 60000}</p>
+                {track.explicit ? <p>E</p> : ''}
+                <p>{(track.duration_ms / 60000).toFixed(2).replace('.', ':')}</p>
               </div>
             )}
           </div>
