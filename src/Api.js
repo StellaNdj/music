@@ -118,3 +118,20 @@ export const getAlbum = async ({token, id}) => {
     console.log('Error while getting album infos', error)
   }
 }
+
+// Search audiobooks, artist, album, track, podcast
+export const getAAATP = async ({token, search, type}) => {
+  try {
+    const response = await axios.get(`${baseUrl}search?q=${search}&type=${type}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log('Error while searching', error)
+  }
+}

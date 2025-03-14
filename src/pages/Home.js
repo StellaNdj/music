@@ -70,7 +70,7 @@ const Home = () => {
             {newReleasesData.map((album) => (
               <SwiperSlide key={album.id} className="w-auto rounded-md p-1 hover:bg-gray-300 cursor-pointer " onClick={() => goToAlbum(album.id)}>
                 <div className="flex justify-center">
-                  <img src={album.images[0].url} alt={album.name} className="rounded-lg w-20 md:w-30 lg:w-40" />
+                  <img src={album.images[0].url} alt={album.name} className="rounded-lg w-24 md:w-30 lg:w-40" />
                 </div>
                 <div className="ml-3">
                   <p className='font-bold text-sm cursor-pointer hover:underline'>{limitChar(album.name, 10)}</p>
@@ -106,7 +106,7 @@ const Home = () => {
                 className="w-auto flex flex-col items-center rounded-md p-1 hover:bg-gray-300 cursor-pointer"
                 onClick={() => goToArtist(artist.id)}>
                 <div className="flex justify-center">
-                  <img src={artist.images[0].url} alt={artist.name} className="rounded-full w-20 md:w-30 lg:w-40" />
+                  <img src={artist.images[0].url} alt={artist.name} className="rounded-full w-22 md:w-30 lg:w-40" />
                 </div>
                 <div className="ml-3">
                   <p className='font-bold text-sm cursor-pointer hover:underline'>{artist.name}</p>

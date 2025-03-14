@@ -12,7 +12,7 @@ const Navbar = () => {
       </div>
       <div className='p-1 flex flex-col items-center'>
         <MagnifyingGlassIcon className='size-6'/>
-        <p className='text-xs'>Discover</p>
+        <p className='text-xs'>Search</p>
       </div>
       <div className='p-1 flex flex-col items-center'>
         <UserCircleIcon className='size-6'/>
