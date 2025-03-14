@@ -11,8 +11,10 @@ const Navbar = () => {
         </Link>
       </div>
       <div className='p-1 flex flex-col items-center'>
-        <MagnifyingGlassIcon className='size-6'/>
-        <p className='text-xs'>Search</p>
+        <Link to='/search'>
+          <MagnifyingGlassIcon className='size-6'/>
+          <p className='text-xs'>Search</p>
+        </Link>
       </div>
       <div className='p-1 flex flex-col items-center'>
         <UserCircleIcon className='size-6'/>
