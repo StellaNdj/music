@@ -129,7 +129,6 @@ export const getAAATP = async ({token, search, type}) => {
         }
       }
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log('Error while searching', error)
