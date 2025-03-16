@@ -44,8 +44,15 @@ const Home = () => {
 
   return (
     <>
-      <div className="mx-2">
-        <h1 className="font-bold text-center">Home</h1>
+      <div className="mx-2 h-screen overflow-auto mb-16">
+        <h1 className="font-bold text-center my-4">Home</h1>
+        {/* Banner */}
+        <div className="bg-blue-600 rounded-lg p-4">
+          <p>Find your next favorite song</p>
+          <img src='vinyl.png' alt='vinyl banner img' className="w-28" />
+        </div>
+
+        {/* Top albums */}
         <div className='my-2'>
           <h2 className='font-bold'>New Releases Tracks</h2>
           <Swiper
@@ -78,7 +85,7 @@ const Home = () => {
             ))}
           </Swiper>
         </div>
-
+        {/* Top artists */}
         <div className='my-2'>
           <h2 className='font-bold'>Top artists</h2>
           <Swiper

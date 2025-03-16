@@ -22,6 +22,7 @@ const Navbar = () => {
       <div className='p-1 flex flex-col items-center'>
           <button onClick={toggleDarkMode}>
             {darkMode ? <SunIcon className='size-6'/> : <MoonIcon className='size-6'/>}
+            {darkMode ? <p className='text-xs'>Light</p> : <p className='text-xs'>Dark</p>}
           </button>
       </div>
     </nav>
