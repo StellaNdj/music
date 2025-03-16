@@ -1,9 +1,12 @@
-import { HomeIcon, MagnifyingGlassIcon, InformationCircleIcon, UserCircleIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, MagnifyingGlassIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
+import { useContext } from 'react';
 import {Link} from 'react-router-dom';
+import { DarkModeContext } from '../contexts/ThemeContext';
 
 const Navbar = () => {
+  const { darkMode, toggleDarkMode } = useContext(DarkModeContext)
   return (
-    <nav className='flex justify-evenly fixed bottom-0 p-2 w-full bg-white z-[1000]'>
+    <nav className='flex justify-evenly fixed bottom-0 p-2 w-full bg-transparent z-[1000]'>
       <div className='p-1 flex flex-col items-center'>
         <Link to='/'>
           <HomeIcon className='size-6'/>
@@ -17,16 +20,9 @@ const Navbar = () => {
         </Link>
       </div>
       <div className='p-1 flex flex-col items-center'>
-        <UserCircleIcon className='size-6'/>
-        <p className='text-xs'>User</p>
-      </div>
-      <div className='p-1 flex flex-col items-center'>
-        <InformationCircleIcon className='size-6'/>
-        <p className='text-xs'>Infos</p>
-      </div>
-      <div className='p-1 flex flex-col items-center'>
-        <AdjustmentsHorizontalIcon className='size-6'/>
-        <p className='text-xs'>Settings</p>
+          <button onClick={toggleDarkMode}>
+            {darkMode ? <SunIcon className='size-6'/> : <MoonIcon className='size-6'/>}
+          </button>
       </div>
     </nav>
   )
