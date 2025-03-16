@@ -7,13 +7,12 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import { useNavigate } from 'react-router-dom';
+import useNavigation from "../utils/navigationHelpers";
 
 const Home = () => {
   const { token } = useContext(AuthContext);
   const [newReleasesData, setNewReleasesData] = useState();
   const [artists, setArtists] = useState();
-  const navigate = useNavigate();
 
   console.log(token);
 
@@ -38,14 +37,8 @@ const Home = () => {
     fetchNewReleases();
     fetchArtists();
   }, [token])
-
-  const goToArtist = (id) => {
-    navigate(`artist/${id}`);
-  }
-
-  const goToAlbum = (id) => {
-    navigate(`album/${id}`)
-  }
+    
+    const { goToArtist, goToAlbum } = useNavigation();
 
   if (!newReleasesData) return <p>Loading...</p>
 

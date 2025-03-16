@@ -8,6 +8,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import useNavigation from "../utils/navigationHelpers";
 
 const Artist = () => {
   const { id } = useParams();
@@ -52,6 +53,8 @@ const Artist = () => {
     getArtistAlbumsInfos();
 
   }, [id, token])
+
+  const {goToAlbum} = useNavigation();
 
   if (!artist) return <p>Loading...</p>
 
@@ -107,7 +110,7 @@ const Artist = () => {
           scrollbar={{ draggable: true }}
         >
           {albums.map((album) =>
-            <SwiperSlide key={album.id}>
+            <SwiperSlide key={album.id} onClick={() => goToAlbum(album.id)}>
               <img src={`${album.images[0].url}`} alt={`${album.name}`} className="h-36 rounded-lg"/>
               <p>{limitChar(album.name, 20)}</p>
               <div className='flex text-sm'>

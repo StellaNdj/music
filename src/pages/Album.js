@@ -13,7 +13,6 @@ const Album = () => {
         const getAlbumInfos = async () => {
             const response = await getAlbum({token, id})
             if (response) {
-                console.log(response);
                 setAlbum(response);
             }
         }
