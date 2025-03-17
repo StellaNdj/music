@@ -13,6 +13,7 @@ const Album = () => {
         const getAlbumInfos = async () => {
             const response = await getAlbum({token, id})
             if (response) {
+                console.log(response)
                 setAlbum(response);
             }
         }
@@ -27,31 +28,33 @@ const Album = () => {
             <div className="h-screen overflow-auto pb-16">
                 <div className="flex flex-col md:flex-row  p-4">
                     <div className="flex justify-center">
-                        <img src={`${album.images[0].url}`} alt={album.name} className='h-28 w-28 '/>
+                        <img src={`${album.images[0].url}`} alt={album.name} className='h-28 w-28 rounded-lg'/>
                     </div>
                     <div>
-                        <p>{album.type}</p>
-                        <h2 className="font-bold">{album.name}</h2>  
-                        <div className='flex flex-wrap'>
-                            <p className="font-bold">{album.artists[0].name} · </p>
-                            <p>{album.total_tracks} tracks ·</p>
+                        <h2 className="font-bold text-center">{album.name}</h2>
+                        <h3 className='font-bold text-center hover:underline'>{album.artists[0].name}</h3> 
+                        <div className='flex flex-wrap justify-center'>
+                            <p className="mr-1">{album.type === 'album' ? 'Album': album.type} ·</p>
+                            <p className="mr-1">{album.total_tracks} {album.total_tracks > 1 ? 'songs' : 'song'} ·</p>
                             <p>{album.release_date.slice(0,4)}</p>
                         </div> 
                     </div>
                 </div>
 
-                <div className='p-4 border-top border-bottom mx-2'>
-                    <ul>
+                <div className='p-4 border-t border-b mx-2'>
                         {album.tracks.items.map((track, index) =>
-                            <li key={track.id}>{index + 1} {track.name}</li>
+                            <div key={track.id} className="flex">
+                                <p className='w-6 text-center text-gray-700 mr-2'>{index + 1}</p> 
+                                <p>{track.name}</p>
+                            </div>
                         )}
 
-                    </ul>
                 </div>
 
                 {/* Copyrights */}
                 <div className="p-2 mx-2 text-sm text-gray-600">
                     <p>{album.copyrights[0].text}</p>
+                    <p>{album.label}</p>
                 </div>
 
             </div>
