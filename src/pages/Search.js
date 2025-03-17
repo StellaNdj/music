@@ -106,7 +106,7 @@ const Search = () => {
                             ✕
                             </button>
                         )}
-                        <button type="submit" className="p-2 bg-blue-500 rounded-full text-white">
+                        <button type="submit" className="p-2 bg-blue-500 rounded-full text-white" disabled={!form.search.trim() || !form.type}>
                             <MagnifyingGlassIcon className="size-5"/>
                         </button>
                     </form>
