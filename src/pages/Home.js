@@ -51,6 +51,7 @@ const Home = () => {
     <>
       <div className="mx-2 h-screen mb-6">
         <h1 className="font-bold text-center my-4">Home</h1>
+
         {/* Banner 1 */}
         <div className="bg-blue-600 rounded-lg p-4 relative h-40">
           <p className='font-bold text-white text-4xl md:text-6xl lg:text-7xl p-2 w-[15rem] md:w-full lg:w-full text-start md:text-center lg:text-center'>Find your next favorite song</p>
@@ -73,7 +74,7 @@ const Home = () => {
             scrollbar={{ draggable: true }}
           >
             {newReleasesData.map((album) => (
-              <SwiperSlide key={album.id} className="w-auto rounded-md p-1 hover:bg-gray-300 cursor-pointer " onClick={() => goToAlbum(album.id)}>
+              <SwiperSlide key={album.id} className="w-auto rounded-md p-1 hover:bg-gray-500 cursor-pointer " onClick={() => goToAlbum(album.id)}>
                 <div className="flex justify-center">
                   <img src={album.images[0].url} alt={album.name} className="rounded-lg w-24 md:w-30 lg:w-40" />
                 </div>
@@ -96,6 +97,7 @@ const Home = () => {
           <p className='font-bold text-white text-4xl ml-2 md:text-6xl lg:text-7xl p-2 w-[15rem] md:w-full lg:w-full text-end md:text-center lg:text-center'>Find your album</p>
           <img src='album.png' alt='vinyl banner img' className={`w-28 absolute bottom-0 left-0 p-1`} />
         </div>
+
         {/* Top artists */}
         <div className='my-2'>
           <h2 className='font-bold'>Top artists</h2>
@@ -114,7 +116,7 @@ const Home = () => {
             {artists.map((artist) => (
               <SwiperSlide
                 key={artist.id}
-                className="w-auto flex flex-col items-center rounded-md p-1 hover:bg-gray-300 cursor-pointer"
+                className="w-auto flex flex-col items-center rounded-md p-1 hover:bg-gray-500 cursor-pointer"
                 onClick={() => goToArtist(artist.id)}>
                 <div className="flex justify-center">
                   <img src={artist.images[0].url} alt={artist.name} className="rounded-full w-22 md:w-30 lg:w-40" />
