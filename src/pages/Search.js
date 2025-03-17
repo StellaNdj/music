@@ -59,145 +59,171 @@ const Search = () => {
 
     return(
         <>
-            {/* Search form */}
-            <div className="m-1 border rounded-full w-full">
-                <form onSubmit={handleSubmit} className="flex">
-                    <input
-                        onChange={handleChange}
-                        name={'search'}
-                        value={form.search}
-                        placeholder="Podcast, audiobook.."
-                    />
-                    <select name={'type'} onChange={handleChange} value={form.type} className='rounded-lg'>
-                        <option value="">Type</option> 
-                        <option value={"audiobook"}>Audiobook</option>
-                        <option value={"show"}>Podcast</option>
-                        <option value={"artist"}>Artist</option>
-                        <option value={"album"}>Album</option>
-                        <option value={"track"}>Song</option>
-                    </select>
-                    <button type="submit"><MagnifyingGlassIcon className="size-5"/></button>
-                </form>
+            <div className="mx-2 h-screen mb-6">
+                <h2 className="font-bold text-2xl ">Search</h2>
 
+                {/* Search form */}
+                <div className="m-1 border rounded-full w-full p-2">
+                    <form onSubmit={handleSubmit} className="flex">
+                        <input
+                            onChange={handleChange}
+                            name={'search'}
+                            value={form.search}
+                            placeholder="Podcast, audiobook.."
+                            className="bg-transparent"
+                        />
+                        <select name={'type'} onChange={handleChange} value={form.type} className='rounded-lg text-center bg-gray-500'>
+                            <option value="">Type</option> 
+                            <option value={"audiobook"}>Audiobook</option>
+                            <option value={"show"}>Podcast</option>
+                            <option value={"artist"}>Artist</option>
+                            <option value={"album"}>Album</option>
+                            <option value={"track"}>Song</option>
+                        </select>
+                        <button type="submit"><MagnifyingGlassIcon className="size-5"/></button>
+                    </form>
+
+                </div>
+
+                <div className="">
+                    {/* No search yet */}
+                    <div className="flex flex-wrap">
+                        <div className='bg-green-600 rounded-lg p-4 h-40 w-[15rem] m-2 relative'>
+                            <p className='font-bold text-xl'>Audiobooks</p>
+                            <img src='books.png' alt='book banner img' className={`w-28 absolute bottom-0 right-0 p-1`} />
+                        </div>
+                        <div className='bg-purple-600 rounded-lg p-4 h-40 w-[15rem] m-2 relative'>
+                            <p className='font-bold text-xl'>Podcasts</p>
+                            <img src='podcast.png' alt='podcast banner img' className={`w-28 absolute bottom-0 right-0 p-1`} />
+                        </div>
+                        <div className='bg-orange-600 rounded-lg p-4 h-40 w-[15rem] m-2 relative'>
+                            <p className='font-bold text-xl'>Artists</p>
+                            <img src='oor.webp' alt='artists banner img' className={`w-28 absolute bottom-0 right-0 p-1 rounded-lg`} />
+                        </div>
+                        <div className='bg-pink-600 rounded-lg p-4 h-40 w-[15rem] m-2 relative'>
+                            <p className='font-bold text-xl'>Albums</p>
+                            <img src='dynamite.jpg' alt='albums banner img' className={`w-28 absolute bottom-0 right-0 p-1 rounded-lg`} />
+                        </div>
+                    </div>
+
+                    {/* Podcasts */}
+                    <div>
+                        {podcasts.length > 0 && (
+                            <>
+                                <p>Search results for : <span className="font-bold">{form.search}</span></p>
+                                {podcasts.map((podcast) =>
+                                    <div key={podcast.id}>
+                                        <img src={podcast.images[0].url} alt={podcast.name} className='rounded-lg w-20'/>
+                                        <div className="flex">
+                                            <p className="font-bold">{podcast.name}</p>
+                                            <div>
+                                                <p>{podcast.type === 'show' ? 'Podcast': ''}</p>
+                                                <p>{podcast.publisher}</p>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                )}
+                            </>
+                        )}
+                    </div>
+
+                    {/* Audiobooks */}
+                    <div>
+                        {audiobooks.length > 0 && (
+                            <>
+                                <p>Search results for : <span className="font-bold">{form.search}</span></p>
+                                {audiobooks.length > 0 && audiobooks.map((audiobook) =>
+                                    <div key={audiobook.id}>
+                                        <img src={audiobook.images[0].url} alt={audiobook.name} className="rounded-lg w-20" />
+                                        <div className="flex">
+                                            <p className="font-bold">{audiobook.name}</p>
+                                            <div>
+                                                <p>{audiobook.publisher}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </>
+                        )}
+                    </div>
+
+                    {/* Albums */}
+                    <div>
+                        {albums.length > 0 && (
+                            <>
+                                <p>Search results for : <span className="font-bold">{form.search}</span></p>
+                                {albums.length > 0 && albums.map((album) =>
+                                    <div key={album.id} onClick={() => goToAlbum(album.id)} className="hover:bg-gray-300 cursor-pointer">
+                                        <img src={album.images[0].url} alt={album.name} className="rounded-lg w-20" />
+                                        <div className="flex">
+                                            <p className="font-bold">{album.name}</p>
+                                            <div>
+                                                <p>{album.artists[0].name}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </>
+                        )}
+                    </div>
+
+                    {/* Tracks */}
+                    <div>
+                        {tracks.length > 0 && (
+                            <>
+                                <p>Search results for : <span className="font-bold">{form.search}</span></p>
+                                {tracks.length > 0 && tracks.map((track) =>
+                                    <div key={track.id}>
+                                        {track.album?.images?.length > 0 ? (
+                                            <img 
+                                                src={track.album.images[0].url} 
+                                                alt={track.name} 
+                                                className="rounded-lg w-20" 
+                                            />
+                                        ) : (
+                                            <p>No Image Available</p>
+                                        )}
+                                        <div className="flex">
+                                            <p className="font-bold">{track.name}</p>
+                                            <div>
+                                                <p>{track.type === 'track' ? 'Song' : ''}</p>
+                                                <p>{track.artists[0].name}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </>
+                        )}
+                    </div>
+
+                    {/* Artists */}
+                    <div>
+                        {artists.length > 0 && (
+                            <>
+                                <p>Search results for : <span className="font-bold">{form.search}</span></p>
+                                {artists.length > 0 && artists.map((artist) =>
+                                    <div key={artist.id}>
+                                        {artist.images?.length > 0 ? (
+                                            <img 
+                                                src={artist.images[0].url} 
+                                                alt={artist.name} 
+                                                className="rounded-full w-20" 
+                                            />
+                                        ) : (
+                                            <p>No Image Available</p>
+                                        )}
+                                        <div className="flex">
+                                            <p className="font-bold">{artist.name}</p>
+                                            <p>{artist.type}</p>
+                                        </div>
+                                    </div>
+                                )}
+                            </>
+                        )}
+                    </div>
+                </div>
+                <Navbar/>
             </div>
-            <div className="h-screen overflow-auto pb-16 mx-4">
-                {/* Podcasts */}
-                <div>
-                    {podcasts.length > 0 && (
-                        <>
-                            <p>Search results for : <span className="font-bold">{form.search}</span></p>
-                            {podcasts.map((podcast) =>
-                                <div key={podcast.id}>
-                                    <img src={podcast.images[0].url} alt={podcast.name} className='rounded-lg w-20'/>
-                                    <div className="flex">
-                                        <p className="font-bold">{podcast.name}</p>
-                                        <div>
-                                            <p>{podcast.type === 'show' ? 'Podcast': ''}</p>
-                                            <p>{podcast.publisher}</p>
-                                        </div>
-                                    </div>
-                                </div> 
-                            )}
-                        </>
-                    )}
-                </div>
-
-                {/* Audiobooks */}
-                <div>
-                    {audiobooks.length > 0 && (
-                        <>
-                            <p>Search results for : <span className="font-bold">{form.search}</span></p>
-                            {audiobooks.length > 0 && audiobooks.map((audiobook) =>
-                                <div key={audiobook.id}>
-                                    <img src={audiobook.images[0].url} alt={audiobook.name} className="rounded-lg w-20" />
-                                    <div className="flex">
-                                        <p className="font-bold">{audiobook.name}</p>
-                                        <div>
-                                            <p>{audiobook.publisher}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        </>
-                    )}
-                </div>
-
-                {/* Albums */}
-                <div>
-                    {albums.length > 0 && (
-                        <>
-                            <p>Search results for : <span className="font-bold">{form.search}</span></p>
-                            {albums.length > 0 && albums.map((album) =>
-                                <div key={album.id} onClick={() => goToAlbum(album.id)} className="hover:bg-gray-300 cursor-pointer">
-                                    <img src={album.images[0].url} alt={album.name} className="rounded-lg w-20" />
-                                    <div className="flex">
-                                        <p className="font-bold">{album.name}</p>
-                                        <div>
-                                            <p>{album.artists[0].name}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        </>
-                    )}
-                </div>
-
-                {/* Tracks */}
-                <div>
-                    {tracks.length > 0 && (
-                        <>
-                            <p>Search results for : <span className="font-bold">{form.search}</span></p>
-                            {tracks.length > 0 && tracks.map((track) =>
-                                <div key={track.id}>
-                                    {track.album?.images?.length > 0 ? (
-                                        <img 
-                                            src={track.album.images[0].url} 
-                                            alt={track.name} 
-                                            className="rounded-lg w-20" 
-                                        />
-                                    ) : (
-                                        <p>No Image Available</p>
-                                    )}
-                                    <div className="flex">
-                                        <p className="font-bold">{track.name}</p>
-                                        <div>
-                                            <p>{track.type === 'track' ? 'Song' : ''}</p>
-                                            <p>{track.artists[0].name}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        </>
-                    )}
-                </div>
-
-                {/* Artists */}
-                <div>
-                    {artists.length > 0 && (
-                        <>
-                            <p>Search results for : <span className="font-bold">{form.search}</span></p>
-                            {artists.length > 0 && artists.map((artist) =>
-                                <div key={artist.id}>
-                                    {artist.images?.length > 0 ? (
-                                        <img 
-                                            src={artist.images[0].url} 
-                                            alt={artist.name} 
-                                            className="rounded-full w-20" 
-                                        />
-                                    ) : (
-                                        <p>No Image Available</p>
-                                    )}
-                                    <div className="flex">
-                                        <p className="font-bold">{artist.name}</p>
-                                        <p>{artist.type}</p>
-                                    </div>
-                                </div>
-                            )}
-                        </>
-                    )}
-                </div>
-            </div>
-            <Navbar/>
         </>
     )
 }
