@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Search from './pages/Search';
 import { DarkModeContextProvider } from './contexts/ThemeContext';
+import Podcast from './pages/Podcast';
+import Audiobook from './pages/Audibook';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
             <Route path='/artist/:id' element={<Artist/>}/>
             <Route path='/album/:id' element={<Album/>} />
             <Route path='/search' element={<Search/>}/>
+            <Route path='/podcast/:id' element={<Podcast/>} />
+            <Route path='/audiobook/:id' element={<Audiobook/> } />
           </Routes>
         </DarkModeContextProvider>
       </AuthContextProvider>

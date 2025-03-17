@@ -70,7 +70,7 @@ const Search = () => {
         setLoading(false);
     }
 
-    const {goToAlbum, goToArtist} = useNavigation();
+    const {goToAlbum, goToArtist, goToPodcast, goToAudiobook} = useNavigation();
 
     return(
         <>
@@ -112,7 +112,7 @@ const Search = () => {
                     </form>
                 </div>
 
-                <SearchResults loading={loading} searchTerm={form.search} {...{ podcasts, audiobooks, artists, albums, tracks, goToAlbum, goToArtist }} />
+                <SearchResults loading={loading} searchTerm={form.search} {...{ podcasts, audiobooks, artists, albums, tracks, goToAlbum, goToArtist, goToPodcast, goToAudiobook }} />
 
                 <Navbar/>
             </div>

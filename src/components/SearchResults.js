@@ -1,4 +1,4 @@
-const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, albums, tracks, goToAlbum, goToArtist }) => {
+const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, albums, tracks, goToAlbum, goToArtist, goToPodcast, goToAudiobook }) => {
     if (loading) {
         return <p className="text-center text-lg font-bold">Loading...</p>;
     }
@@ -35,7 +35,7 @@ const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, alb
                 <div>
                     <h3 className="font-bold">Podcasts</h3>
                     {podcasts.map(podcast => (
-                        <div key={podcast.id} className="flex items-center">
+                        <div key={podcast.id} className="flex items-center cursor-pointer" onClick={() => goToPodcast(podcast.id)}>
                             <img src={podcast.images[0]?.url} alt={podcast.name} className="rounded-lg w-20" />
                             <div className="ml-2">
                                 <p className="font-bold">{podcast.name}</p>
@@ -51,7 +51,7 @@ const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, alb
                 <div>
                     <h3 className="font-bold">Audiobooks</h3>
                     {audiobooks.map(audiobook => (
-                        <div key={audiobook.id} className="flex items-center">
+                        <div key={audiobook.id} className="flex items-center cursor-pointer" onClick={() => goToAudiobook(audiobook.id)}>
                             <img src={audiobook.images[0]?.url} alt={audiobook.name} className="rounded-lg w-20" />
                             <p className="ml-2 font-bold">{audiobook.name}</p>
                         </div>

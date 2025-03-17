@@ -134,3 +134,36 @@ export const getAAATP = async ({token, search, type}) => {
     console.log('Error while searching', error)
   }
 }
+
+// Get podcast infos
+export const getPodcast = async ({token, id}) => {
+  try {
+    const response = await axios.get(`${baseUrl}shows/${id}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log('Error while getting podcast', error)
+  }
+}
+
+// Get audiobook infos
+export const getAudiobook = async ({token, id}) => {
+  try {
+    const response = await axios.get(`${baseUrl}audiobooks/${id}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log('Error while getting audiobook', error)
+  }
+}
