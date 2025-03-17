@@ -1,4 +1,4 @@
-const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, albums, tracks, goToAlbum }) => {
+const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, albums, tracks, goToAlbum, goToArtist }) => {
     if (loading) {
         return <p className="text-center text-lg font-bold">Loading...</p>;
     }
@@ -97,7 +97,7 @@ const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, alb
                 <div>
                     <h3 className="font-bold">Artists</h3>
                     {artists.map(artist => (
-                        <div key={artist.id} className="flex items-center">
+                        <div key={artist.id} className="flex items-center cursor-pointer" onClick={() => goToArtist(artist.id)}>
                             {artist.images?.length > 0 ? (
                                 <img src={artist.images[0]?.url} alt={artist.name} className="rounded-full w-20" />
                             ) : (
