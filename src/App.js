@@ -12,14 +12,12 @@ function App() {
     <Router>
       <AuthContextProvider>
         <DarkModeContextProvider>
-          <div className='h-full'>
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/artist/:id' element={<Artist/>}/>
-              <Route path='/album/:id' element={<Album/>} />
-              <Route path='/search' element={<Search/>}/>
-            </Routes>
-          </div>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/artist/:id' element={<Artist/>}/>
+            <Route path='/album/:id' element={<Album/>} />
+            <Route path='/search' element={<Search/>}/>
+          </Routes>
         </DarkModeContextProvider>
       </AuthContextProvider>
     </Router>
