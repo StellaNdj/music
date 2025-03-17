@@ -4,6 +4,7 @@ import { getAAATP } from "../Api";
 import { AuthContext } from "../contexts/AuthContext";
 import useNavigation from "../utils/navigationHelpers";
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import SearchResults from "../components/SearchResults";
 
 const Search = () => {
     const [form, setForm] = useState({
@@ -16,6 +17,7 @@ const Search = () => {
     const [artists, setArtists] = useState([]);
     const [albums, setAlbums] = useState([]);
     const [tracks, setTracks] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const { token } = useContext(AuthContext);
 
@@ -28,6 +30,7 @@ const Search = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const search = form.search.trim().toLocaleLowerCase().replaceAll(" ", "_");
 
         const response = await getAAATP({token: token, search: search, type: form.type})
@@ -53,41 +56,65 @@ const Search = () => {
                 setTracks(response.tracks.items)
             }
         }
+        setLoading(false);
+    }
+
+    const handleClear = () => {
+        // Reset everything
+        setForm({ search: '', type: '' });  
+        setPodcasts([]);
+        setAudiobooks([]);
+        setArtists([]);
+        setAlbums([]);
+        setTracks([]);
+        setLoading(false);
     }
 
     const {goToAlbum} = useNavigation();
 
     return(
         <>
-            <div className="mx-2 h-screen mb-6">
+            <div className="mx-2 h-screen overflow-auto pb-16">
                 <h2 className="font-bold text-2xl ">Search</h2>
 
                 {/* Search form */}
-                <div className="m-1 border rounded-full w-full p-2">
-                    <form onSubmit={handleSubmit} className="flex">
+                <div className="m-2 w-full max-w-lg mx-auto border rounded-full w-full p-2 flex items-center bg-gray-200">
+                    <form onSubmit={handleSubmit} className='flex w-full'> 
                         <input
                             onChange={handleChange}
-                            name={'search'}
+                            name="search"
                             value={form.search}
-                            placeholder="Podcast, audiobook.."
-                            className="bg-transparent"
+                            placeholder="Podcast, audiobook..."
+                            className="bg-transparent flex-grow p-2 focus:outline-none"
                         />
-                        <select name={'type'} onChange={handleChange} value={form.type} className='rounded-lg text-center bg-gray-500'>
+                        <select
+                            name="type"
+                            onChange={handleChange}
+                            value={form.type}
+                            className="rounded-lg text-center bg-gray-500 px-2 py-1 mx-2"
+                        >
                             <option value="">Type</option> 
-                            <option value={"audiobook"}>Audiobook</option>
-                            <option value={"show"}>Podcast</option>
-                            <option value={"artist"}>Artist</option>
-                            <option value={"album"}>Album</option>
-                            <option value={"track"}>Song</option>
+                            <option value="audiobook">Audiobook</option>
+                            <option value="show">Podcast</option>
+                            <option value="artist">Artist</option>
+                            <option value="album">Album</option>
+                            <option value="track">Song</option>
                         </select>
-                        <button type="submit"><MagnifyingGlassIcon className="size-5"/></button>
+                        <button type="submit" className="p-2 bg-blue-500 rounded-full text-white">
+                            <MagnifyingGlassIcon className="size-5"/>
+                        </button>
                     </form>
-
+                    {form.search && (
+                        <button onClick={handleClear} className="p-2 ml-2 text-gray-500">
+                        ✕
+                        </button>
+                    )}
                 </div>
+
 
                 <div className="">
                     {/* No search yet */}
-                    <div className="flex flex-wrap">
+                    {/* <div className="flex flex-wrap">
                         <div className='bg-green-600 rounded-lg p-4 h-40 w-[15rem] m-2 relative'>
                             <p className='font-bold text-xl'>Audiobooks</p>
                             <img src='books.png' alt='book banner img' className={`w-28 absolute bottom-0 right-0 p-1`} />
@@ -104,10 +131,10 @@ const Search = () => {
                             <p className='font-bold text-xl'>Albums</p>
                             <img src='dynamite.jpg' alt='albums banner img' className={`w-28 absolute bottom-0 right-0 p-1 rounded-lg`} />
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Podcasts */}
-                    <div>
+                    {/* <div>
                         {podcasts.length > 0 && (
                             <>
                                 <p>Search results for : <span className="font-bold">{form.search}</span></p>
@@ -125,10 +152,10 @@ const Search = () => {
                                 )}
                             </>
                         )}
-                    </div>
+                    </div> */}
 
                     {/* Audiobooks */}
-                    <div>
+                    {/* <div>
                         {audiobooks.length > 0 && (
                             <>
                                 <p>Search results for : <span className="font-bold">{form.search}</span></p>
@@ -145,10 +172,10 @@ const Search = () => {
                                 )}
                             </>
                         )}
-                    </div>
+                    </div> */}
 
                     {/* Albums */}
-                    <div>
+                    {/* <div>
                         {albums.length > 0 && (
                             <>
                                 <p>Search results for : <span className="font-bold">{form.search}</span></p>
@@ -165,10 +192,10 @@ const Search = () => {
                                 )}
                             </>
                         )}
-                    </div>
+                    </div> */}
 
                     {/* Tracks */}
-                    <div>
+                    {/* <div>
                         {tracks.length > 0 && (
                             <>
                                 <p>Search results for : <span className="font-bold">{form.search}</span></p>
@@ -194,10 +221,10 @@ const Search = () => {
                                 )}
                             </>
                         )}
-                    </div>
+                    </div> */}
 
                     {/* Artists */}
-                    <div>
+                    {/* <div>
                         {artists.length > 0 && (
                             <>
                                 <p>Search results for : <span className="font-bold">{form.search}</span></p>
@@ -220,8 +247,9 @@ const Search = () => {
                                 )}
                             </>
                         )}
-                    </div>
+                    </div> */}
                 </div>
+                <SearchResults loading={loading} searchTerm={form.search} {...{ podcasts, audiobooks, artists, albums, tracks, goToAlbum }}  />
                 <Navbar/>
             </div>
         </>

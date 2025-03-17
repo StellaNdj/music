@@ -2,16 +2,11 @@ import { useNavigate } from "react-router-dom";
 
 const useNavigation = () => {
     const navigate = useNavigate();
-
-    const goToArtist = (id) => {
-        navigate(`artist/${id}`);
-    }
     
-    const goToAlbum = (id) => {
-        navigate(`album/${id}`)
-    }
-
-    return { goToArtist, goToAlbum };
+    return {
+        goToAlbum: (id) => navigate(`/album/${id}`), 
+        goToArtist: (id) => navigate(`/artist/${id}`)
+    };
 
 };
 export default useNavigation;

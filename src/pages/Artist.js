@@ -60,7 +60,7 @@ const Artist = () => {
 
   return(
     <>
-      <div className="h-screen overflow-auto pb-16">
+      <div className="mx-2 h-screen overflow-auto pb-16">
         {/* Artist Banner */}
         <div
           className="w-full h-60 flex items-center bg-cover bg-center relative"

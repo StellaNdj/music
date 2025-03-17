@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { getAlbum } from "../Api";
+import StickyHeader from "../components/StickyHeader";
 
 const Album = () => {
     const { id } = useParams();
@@ -25,10 +26,11 @@ const Album = () => {
 
     return (
         <>
-            <div className="h-screen overflow-auto pb-16">
+            <div className="mx-2 h-screen overflow-auto pb-16">
+                <StickyHeader title={album.name} image={album.images[0].url}/>
                 <div className="flex flex-col md:flex-row  p-4">
                     <div className="flex justify-center">
-                        <img src={`${album.images[0].url}`} alt={album.name} className='h-28 w-28 rounded-lg'/>
+                        <img src={`${album.images[0]?.url}`} alt={album.name} className='h-28 w-28 rounded-lg'/>
                     </div>
                     <div>
                         <h2 className="font-bold text-center">{album.name}</h2>
