@@ -1,30 +1,52 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { DarkModeContext } from '../contexts/ThemeContext';
 
-const StickyHeader = ({ title, image }) => {
+
+const StickyHeader = ({ title, titleRef }) => {
   const [scrolled, setScrolled] = useState(false);
+  const [titleSticky, setTitleSticky] = useState(false);
+  const navigate = useNavigate();
+  const { darkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 1); 
+      const scrollTop = window.scrollY;
+      setScrolled(scrollTop > 0);
+
+      // Track when the title reaches the sticky position
+      if (titleRef?.current) {
+        const titleTop = titleRef.current.getBoundingClientRect().top;
+        setTitleSticky(titleTop <= 60); 
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [titleRef]);
 
   return (
-    <div
-      className={`fixed top-0 w-full p-4 z-50 transition-all backdrop-blur-md ${
-        scrolled ? "bg-white/30 shadow-md" : "bg-transparent"
-      }`}
-    >
-      {scrolled && (
-        <div className="flex items-center gap-2">
-          {image && <img src={image} alt={title} className="h-10 w-10 rounded-full" />}
-          <h2 className="font-bold">{title}</h2>
+    <>
+      {/* Sticky Header */}
+      <div
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          scrolled ? `backdrop-blur-md border-b border-gray-300 ${darkMode ? 'bg-[rgb(15,15,39)]/50' : 'bg-white/50' }` : "bg-transparent border-none"
+        }`}
+      >
+        <div className="flex items-center gap-2 px-4 py-3">
+          {/* Back Button */}
+          <button onClick={() => navigate(-1)} className={`p-1 rounded-full ${scrolled ? '' : "bg-gray-200"}  hover:bg-gray-300 transition`}>
+            <ChevronLeftIcon className='size-4'/>
+          </button>
+
+          {/* Sticky Title (only visible when scrolled past the title) */}
+          <h2 className={`text-lg font-bold transition-opacity ${titleSticky ? "opacity-100" : "opacity-0"}`}>
+            {title}
+          </h2>
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 

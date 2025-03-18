@@ -4,7 +4,8 @@ import {Link} from 'react-router-dom';
 import { DarkModeContext } from '../contexts/ThemeContext';
 
 const Navbar = () => {
-  const { darkMode, toggleDarkMode } = useContext(DarkModeContext)
+  const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
+  
   return (
     <nav className={`flex justify-evenly fixed bottom-0 p-2 w-full z-[1000] ${darkMode ? 'bg-[rgb(15,15,39)]' : 'bg-white'}`}>
       <Link to='/'>

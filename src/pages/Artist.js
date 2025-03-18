@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import { useParams } from 'react-router-dom';
 import { getArtist, getArtistAlbums, getArtistTopTrakcs } from "../Api";
@@ -9,6 +9,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import useNavigation from "../utils/navigationHelpers";
+import StickyHeader from "../components/StickyHeader";
 
 const Artist = () => {
   const { id } = useParams();
@@ -16,6 +17,7 @@ const Artist = () => {
   const [artist, setArtist] = useState();
   const [topTracks, setTopTracks] = useState([]);
   const [albums, setAlbums] = useState([]);
+  const titleRef = useRef(null)
 
   const limitChar = (string, max_length) => {
     return string.length > max_length ? string.slice(0, max_length) + '..' : string;
@@ -60,7 +62,8 @@ const Artist = () => {
 
   return(
     <>
-      <div className="mx-2 h-screen overflow-auto pb-16">
+      <div className="mx-2  overflow-auto pb-16">
+        <StickyHeader title={artist.name} titleRef={titleRef}/>
         {/* Artist Banner */}
         <div
           className="w-full h-60 flex items-center bg-cover bg-center relative"
@@ -71,7 +74,7 @@ const Artist = () => {
 
           {/* Content Section */}
           <div className="relative z-10 p-6 text-white">
-            <h2 className="font-bold text-6xl">{artist.name}</h2>
+            <h2 ref={titleRef} className="font-bold text-6xl">{artist.name}</h2>
             <p>{artist.followers.total.toLocaleString()} followers</p>
           </div>
         </div>

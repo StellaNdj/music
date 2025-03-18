@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { getAlbum } from "../Api";
 import StickyHeader from "../components/StickyHeader";
+import useNavigation from "../utils/navigationHelpers";
 
 const Album = () => {
     const { id } = useParams();
@@ -22,19 +23,20 @@ const Album = () => {
         getAlbumInfos();
     }, [id, token]);
 
+    const {goToArtist} = useNavigation();
+
     if (!album) return <p>Loading...</p>
 
     return (
         <>
             <div className="mx-2 h-screen overflow-auto pb-16">
-                <StickyHeader title={album.name} image={album.images[0].url}/>
                 <div className="flex flex-col md:flex-row  p-4">
                     <div className="flex justify-center">
                         <img src={`${album.images[0]?.url}`} alt={album.name} className='h-28 w-28 rounded-lg'/>
                     </div>
                     <div>
                         <h2 className="font-bold text-center">{album.name}</h2>
-                        <h3 className='font-bold text-center hover:underline'>{album.artists[0].name}</h3> 
+                        <h3 className='font-bold text-center hover:underline' onClick={() => goToArtist(album.artists[0].id)}>{album.artists[0].name}</h3> 
                         <div className='flex flex-wrap justify-center'>
                             <p className="mr-1">{album.type === 'album' ? 'Album': album.type} ·</p>
                             <p className="mr-1">{album.total_tracks} {album.total_tracks > 1 ? 'songs' : 'song'} ·</p>
