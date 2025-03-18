@@ -8,6 +8,7 @@ import Search from './pages/Search';
 import { DarkModeContextProvider } from './contexts/ThemeContext';
 import Podcast from './pages/Podcast';
 import Audiobook from './pages/Audibook';
+import PodcastEpisode from './pages/PodcastEpisode';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path='/search' element={<Search/>}/>
             <Route path='/podcast/:id' element={<Podcast/>} />
             <Route path='/audiobook/:id' element={<Audiobook/> } />
+            <Route path='/podcast/episode/:id' element={<PodcastEpisode/> } />
           </Routes>
         </DarkModeContextProvider>
       </AuthContextProvider>

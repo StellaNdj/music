@@ -151,6 +151,22 @@ export const getPodcast = async ({token, id}) => {
   }
 }
 
+// Get podcast episodes infos 
+export const getPodcastEpisode = async ({token, id}) => {
+  try {
+    const response = await axios.get(`${baseUrl}episodes/${id}`,
+      {
+        headers: {
+          'Authorization' : `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log('Error while fetching an episode', error)
+  }
+}
+
 // Get audiobook infos
 export const getAudiobook = async ({token, id}) => {
   try {

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { getPodcast } from "../Api";
 import { useParams } from "react-router-dom";
+import useNavigation from "../utils/navigationHelpers";
 
 const Podcast = () => {
     const [podcast, setPodcast] = useState();
@@ -19,6 +20,8 @@ const Podcast = () => {
         getPodcastInfos();
     }, [id, token])
 
+    const { goToPodcastEpisode } = useNavigation();
+
     if (!podcast) return <p>Loading...</p>
 
     return(
@@ -31,7 +34,7 @@ const Podcast = () => {
             </div>
             <div>
                 {podcast.episodes.items.map((episode) => 
-                    <div>
+                    <div key={episode.id} onClick={() => goToPodcastEpisode(episode.id)} >
                         <p>{episode.release_date}</p>
                         <p>{episode.name}</p>
                         <p>{(episode.duration_ms / 6000).toFixed()}</p>

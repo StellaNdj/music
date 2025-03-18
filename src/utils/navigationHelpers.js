@@ -7,7 +7,8 @@ const useNavigation = () => {
         goToAlbum: (id) => navigate(`/album/${id}`), 
         goToArtist: (id) => navigate(`/artist/${id}`),
         goToPodcast: (id) => navigate(`/podcast/${id}`),
-        goToAudiobook: (id) => navigate(`/audiobook/${id}`)
+        goToAudiobook: (id) => navigate(`/audiobook/${id}`),
+        goToPodcastEpisode: (id) => navigate(`/podcast/episode/${id}`)
     };
 
 };
