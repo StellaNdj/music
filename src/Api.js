@@ -177,9 +177,24 @@ export const getAudiobook = async ({token, id}) => {
         }
       }
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log('Error while getting audiobook', error)
+  }
+}
+
+// Get audiobook chapter infos
+export const getAudiobookChapter = async ({token, id}) => {
+  try {
+    const response = await axios.get(`${baseUrl}chapters/${id}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log('Error while getting audiobook chapter', error)
   }
 }

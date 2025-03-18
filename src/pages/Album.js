@@ -60,7 +60,6 @@ const Album = () => {
                 </div>
 
             </div>
-            <Navbar/>
         </>
     )
 }

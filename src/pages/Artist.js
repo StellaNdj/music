@@ -124,7 +124,6 @@ const Artist = () => {
         </div>
 
       </div>
-      <Navbar/>
     </>
   )
 }

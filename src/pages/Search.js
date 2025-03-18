@@ -113,8 +113,6 @@ const Search = () => {
                 </div>
 
                 <SearchResults loading={loading} searchTerm={form.search} {...{ podcasts, audiobooks, artists, albums, tracks, goToAlbum, goToArtist, goToPodcast, goToAudiobook }} />
-
-                <Navbar/>
             </div>
         </>
     )
