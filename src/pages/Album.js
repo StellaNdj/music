@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import { useContext, useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { getAlbum } from "../Api";
@@ -10,12 +9,12 @@ const Album = () => {
     const { id } = useParams();
     const { token } = useContext(AuthContext);
     const [album, setAlbum] = useState();
+    const titleRef = useRef(null);
 
     useEffect(() => {
         const getAlbumInfos = async () => {
             const response = await getAlbum({token, id})
             if (response) {
-                console.log(response)
                 setAlbum(response);
             }
         }
@@ -29,13 +28,15 @@ const Album = () => {
 
     return (
         <>
-            <div className="mx-2 h-screen overflow-auto pb-16">
+            <div className="mx-2 overflow-auto pb-16">
+                <StickyHeader title={album.name} titleRef={titleRef}/> 
+
                 <div className="flex flex-col md:flex-row  p-4">
                     <div className="flex justify-center">
                         <img src={`${album.images[0]?.url}`} alt={album.name} className='h-28 w-28 rounded-lg'/>
                     </div>
                     <div>
-                        <h2 className="font-bold text-center">{album.name}</h2>
+                        <h2 ref={titleRef} className="font-bold text-center">{album.name}</h2>
                         <h3 className='font-bold text-center hover:underline' onClick={() => goToArtist(album.artists[0].id)}>{album.artists[0].name}</h3> 
                         <div className='flex flex-wrap justify-center'>
                             <p className="mr-1">{album.type === 'album' ? 'Album': album.type} ·</p>

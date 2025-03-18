@@ -1,13 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useParams } from "react-router-dom";
 import { getAudiobook } from "../Api";
 import useNavigation from "../utils/navigationHelpers";
+import StickyHeader from "../components/StickyHeader";
 
 const Audiobook = () => {
     const [audiobook, setAudiobook] = useState();
     const {token} = useContext(AuthContext);
-    const {id} = useParams()
+    const {id} = useParams();
+    const titleRef = useRef(null);
 
     useEffect(() => {
         const getAudiobookInfos = async () => {
@@ -26,9 +28,10 @@ const Audiobook = () => {
 
     return(
         <>
-            <div>
+            <div className="mx-2 overflow-auto pb-16">
+                <StickyHeader title={audiobook.name} titleRef={titleRef}/>
                 {audiobook.images[0]?.url ? <img src={audiobook.images[0]?.url} alt={audiobook.name}/> : <p>No image available</p>}
-                <h2>{audiobook.name}</h2>
+                <h2 ref={titleRef}>{audiobook.name}</h2>
                 <p>{audiobook.publisher}</p>
                 <p>{audiobook.description}</p>
                 <p>{audiobook.explicit ? 'Explicit': ''}</p>

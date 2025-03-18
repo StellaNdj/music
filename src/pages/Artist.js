@@ -62,7 +62,7 @@ const Artist = () => {
 
   return(
     <>
-      <div className="mx-2  overflow-auto pb-16">
+      <div className="mx-2 overflow-auto pb-16">
         <StickyHeader title={artist.name} titleRef={titleRef}/>
         {/* Artist Banner */}
         <div

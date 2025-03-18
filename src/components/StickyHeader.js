@@ -18,20 +18,20 @@ const StickyHeader = ({ title, titleRef }) => {
       // Track when the title reaches the sticky position
       if (titleRef?.current) {
         const titleTop = titleRef.current.getBoundingClientRect().top;
-        setTitleSticky(titleTop <= 60); 
+        setTitleSticky(titleTop <= 60 && scrollTop > 0); 
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [titleRef]);
+  }, []);
 
   return (
     <>
       {/* Sticky Header */}
       <div
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          scrolled ? `backdrop-blur-md border-b border-gray-300 ${darkMode ? 'bg-[rgb(15,15,39)]/50' : 'bg-white/50' }` : "bg-transparent border-none"
+          scrolled ? `backdrop-blur-md border-b ${darkMode ? 'bg-[rgb(15,15,39)]/50 border-gray-600' : 'bg-white/50 border-gray-300' }` : "bg-transparent border-none"
         }`}
       >
         <div className="flex items-center gap-2 px-4 py-3">

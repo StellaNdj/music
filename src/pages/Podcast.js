@@ -1,13 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { getPodcast } from "../Api";
 import { useParams } from "react-router-dom";
 import useNavigation from "../utils/navigationHelpers";
+import StickyHeader from "../components/StickyHeader";
 
 const Podcast = () => {
     const [podcast, setPodcast] = useState();
     const { token } = useContext(AuthContext);
-    const { id } = useParams()
+    const { id } = useParams();
+    const titleRef = useRef(null);
 
     useEffect(() => {
         const getPodcastInfos = async () => {
@@ -26,9 +28,10 @@ const Podcast = () => {
 
     return(
         <>
-            <div>
+            <div className="mx-2 overflow-auto pb-16">
+                <StickyHeader title={podcast.name} titleRef={titleRef}/>
                 {podcast.images[0]?.url ? <img src={podcast.images[0].url} alt={podcast.name}/> : 'No image available'}
-                <h2>{podcast.name}</h2>
+                <h2 ref={titleRef}>{podcast.name}</h2>
                 <p>{podcast.publisher}</p>
                 <p>{podcast.description}</p>
             </div>
