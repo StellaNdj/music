@@ -75,7 +75,7 @@ const Search = () => {
     return(
         <>
             <div className="mx-2 h-screen overflow-auto pb-16">
-                <h2 className="font-bold text-2xl ">Search</h2>
+                <h2 className="font-bold text-2xl mt-4">Search</h2>
 
                 {/* Search form */}
                 <div className="m-2 w-full max-w-lg mx-auto border rounded-full w-full p-2 flex items-center bg-gray-200">
