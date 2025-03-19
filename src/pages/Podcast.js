@@ -4,6 +4,7 @@ import { getPodcast } from "../Api";
 import { useParams } from "react-router-dom";
 import useNavigation from "../utils/navigationHelpers";
 import StickyHeader from "../components/StickyHeader";
+import TopSection from "../components/TopSection";
 
 const Podcast = () => {
     const [podcast, setPodcast] = useState();
@@ -23,7 +24,7 @@ const Podcast = () => {
 
     const limitChar = (string, max_length) => {
         return string.length > max_length ? string.slice(0, max_length) + '..' : string;
-      }
+    }
 
     useEffect(() => {
         const getPodcastInfos = async () => {
@@ -43,25 +44,9 @@ const Podcast = () => {
         <>
             <div className="mx-2 overflow-auto pb-16">
                 <StickyHeader title={podcast.name} titleRef={titleRef}/>
-                <div
-                    className="w-full h-60 flex items-center bg-cover bg-center relative"
-                    style={{ backgroundImage: `url(${podcast.images[0]?.url})` }}
-                >
-                    <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-                    <div className="relative z-10 p-6 text-white">
-                        <h2 ref={titleRef} className="font-bold text-2xl">{podcast.name}</h2>
-                        <p>{podcast.publisher}</p>
-                    </div>
-                </div>
-                <div className="mx-2 p-2">
-                    {more ? <p className="text-sm">{podcast.description}</p> : <p className="text-sm">{limitChar(podcast.description, 150)}</p> }
-                    <button 
-                        className="text-gray-700 text-sm hover:underline ml-1"
-                        onClick={() => setMore(!more)}>
-                        {more ? 'Less' : 'More'}
-                    </button>
-                    
-                </div>
+
+                <TopSection more={more} name={podcast.name} titleRef={titleRef} publisher={podcast.publisher} imageUrl={podcast.images[0]?.url} limitChar={limitChar} description={podcast.description} setMore={setMore} />
+
                 <div className="mx-2">
                     {podcast.episodes.items.map((episode) => 
                         <div key={episode.id} onClick={() => goToPodcastEpisode(episode.id)} className="flex hover:bg-gray-500 cursor-pointer p-4 rounded-lg" >

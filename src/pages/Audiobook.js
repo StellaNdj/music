@@ -4,12 +4,26 @@ import { useParams } from "react-router-dom";
 import { getAudiobook } from "../Api";
 import useNavigation from "../utils/navigationHelpers";
 import StickyHeader from "../components/StickyHeader";
+import TopSection from "../components/TopSection";
 
 const Audiobook = () => {
     const [audiobook, setAudiobook] = useState();
     const {token} = useContext(AuthContext);
     const {id} = useParams();
     const titleRef = useRef(null);
+    const [more, setMore] = useState(false);
+
+    const formatDuration = (time_ms) => {
+        const totalMinutes = Math.floor(time_ms / 60000);
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+
+        return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`
+    }
+
+    const limitChar = (string, max_length) => {
+        return string.length > max_length ? string.slice(0, max_length) + '..' : string;
+    }
 
     useEffect(() => {
         const getAudiobookInfos = async () => {
@@ -30,18 +44,17 @@ const Audiobook = () => {
         <>
             <div className="mx-2 overflow-auto pb-16">
                 <StickyHeader title={audiobook.name} titleRef={titleRef}/>
-                {audiobook.images[0]?.url ? <img src={audiobook.images[0]?.url} alt={audiobook.name}/> : <p>No image available</p>}
-                <h2 ref={titleRef}>{audiobook.name}</h2>
-                <p>{audiobook.publisher}</p>
-                <p>{audiobook.description}</p>
-                <p>{audiobook.explicit ? 'Explicit': ''}</p>
+
+                <TopSection more={more} setMore={setMore} titleRef={titleRef} limitChar={limitChar} name={audiobook.name} publisher={audiobook.publisher} description={audiobook.description} imageUrl={audiobook.images[0]?.url} />
             </div>
-            <div>
+            <div className="mx-2">
                 {audiobook.chapters.items.map((chapter) => 
-                    <div key={chapter.id} onClick={() => goToAudiobookChapter(chapter.id)} className='cursor-pointer'>
-                        {chapter.images[0]?.url ? <img src={chapter.images[0]?.url} alt={chapter.image}/> : <p>No image available</p>}
-                        <p>{chapter.name}</p>
-                        <p>{(chapter.duration_ms / 6000)}</p>
+                    <div key={chapter.id} onClick={() => goToAudiobookChapter(chapter.id)} className='flex hover:bg-gray-500 cursor-pointer p-4 rounded-lg'>
+                        {chapter.images[0]?.url ? <img src={chapter.images[0]?.url} alt={chapter.image} className='w-20 h-20 rounded-lg'/> : <p>No image available</p>}
+                        <div className="ml-2">
+                            <p className="font-bold">{limitChar(chapter.name, 30)}</p>
+                            <p>{formatDuration(chapter.duration_ms)}</p>
+                        </div>
                     </div>
                 )}
             </div>

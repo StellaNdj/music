@@ -1,4 +1,9 @@
 const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, albums, tracks, goToAlbum, goToArtist, goToPodcast, goToAudiobook }) => {
+
+    const limitChar = (string, max_length) => {
+        return string.length > max_length ? string.slice(0, max_length) + '..' : string;
+    }
+
     if (loading) {
         return <p className="text-center text-lg font-bold">Loading...</p>;
     }
@@ -38,7 +43,7 @@ const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, alb
                         <div key={podcast.id} className="flex items-center hover:bg-gray-500 cursor-pointer p-4 rounded-lg" onClick={() => goToPodcast(podcast.id)}>
                             <img src={podcast.images[0]?.url} alt={podcast.name} className="rounded-lg w-20" />
                             <div className="ml-2">
-                                <p className="font-bold">{podcast.name}</p>
+                                <p className="font-bold">{limitChar(podcast.name, 30)}</p>
                                 <p>{podcast.publisher}</p>
                             </div>
                         </div>
@@ -53,7 +58,7 @@ const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, alb
                     {audiobooks.map(audiobook => (
                         <div key={audiobook.id} className="flex items-center hover:bg-gray-500 cursor-pointer  p-4 rounded-lg" onClick={() => goToAudiobook(audiobook.id)}>
                             <img src={audiobook.images[0]?.url} alt={audiobook.name} className="rounded-lg w-20" />
-                            <p className="ml-2 font-bold">{audiobook.name}</p>
+                            <p className="ml-2 font-bold">{limitChar(audiobook.name, 30)}</p>
                         </div>
                     ))}
                 </div>
@@ -66,7 +71,7 @@ const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, alb
                     {albums.map(album => (
                         <div key={album.id} onClick={() => goToAlbum(album.id)} className="cursor-pointer hover:bg-gray-300 flex items-center  p-4 rounded-lg">
                             <img src={album.images[0]?.url} alt={album.name} className="rounded-lg w-20" />
-                            <p className="ml-2 font-bold">{album.name}</p>
+                            <p className="ml-2 font-bold">{limitChar(album.name, 30)}</p>
                         </div>
                     ))}
                 </div>
@@ -84,7 +89,7 @@ const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, alb
                                 <p>No Image Available</p>
                             )}
                             <div className="ml-2">
-                                <p className="font-bold">{track.name}</p>
+                                <p className="font-bold">{limitChar(track.name, 30)}</p>
                                 <p>{track.artists[0]?.name}</p>
                             </div>
                         </div>
@@ -103,7 +108,7 @@ const SearchResults = ({ loading, searchTerm, podcasts, audiobooks, artists, alb
                             ) : (
                                 <p>No Image Available</p>
                             )}
-                            <p className="ml-2 font-bold">{artist.name}</p>
+                            <p className="ml-2 font-bold">{limitChar(artist.name, 30)}</p>
                         </div>
                     ))}
                 </div>
