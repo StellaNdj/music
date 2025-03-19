@@ -12,7 +12,6 @@ import PodcastEpisode from './pages/PodcastEpisode';
 import AudiobookChapter from './pages/AudiobookChapter';
 import Layout from './components/Layout';
 import { PlayerProvider } from './contexts/PlayerContext';
-import MiniPlayer from './components/MiniPlayer';
 
 function App() {
   return (
@@ -32,7 +31,6 @@ function App() {
                 <Route path='/audiobook/chapter/:id' element={<AudiobookChapter/>}  />
               </Route>
             </Routes>
-            <MiniPlayer/>
           </PlayerProvider>
         </DarkModeContextProvider>
       </AuthContextProvider>

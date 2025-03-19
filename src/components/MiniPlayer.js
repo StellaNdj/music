@@ -2,9 +2,8 @@ import { useState } from "react";
 import { usePlayer } from "../contexts/PlayerContext";
 import Player from "./Player";
 
-const MiniPlayer = () => {
+const MiniPlayer = ({handleOpen}) => {
     const {track, isPlaying, togglePlayPause} = usePlayer();
-    const [showFullPlayer, setShowFullPlayer] = useState(false);
 
     if (!track) return null;
 
@@ -12,10 +11,7 @@ const MiniPlayer = () => {
 
     return (
         <div className="fixed bottom-16 left-0 w-full bg-gray-900 text-white p-3 flex items-center justify-between"
-            onClick={() => {
-                console.log('Full player open')
-                setShowFullPlayer(true)}}
-        >
+            onClick={handleOpen}>
           <div className="flex items-center gap-2">
             <img src={track.image} alt={track.title} className="w-12 h-12 rounded" />
             <div>
@@ -27,10 +23,6 @@ const MiniPlayer = () => {
           <button onClick={togglePlayPause} className="text-lg">
             {isPlaying ? "⏸️" : "▶️"}
           </button>
-
-          {showFullPlayer && (
-            <Player handleClose={() => setShowFullPlayer(false)} />
-            )}
         </div>
       );
 }

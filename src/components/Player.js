@@ -9,6 +9,15 @@ const Player = ({handleClose}) => {
         <div className="fixed inset-0 bg-gray-800 text-white flex flex-col items-center justify-center z-[999] pb-10"
         onClick={(e) => e.stopPropagation()} 
         >
+            <button 
+            onClick={(e) => {
+                e.stopPropagation(); // 👈 Stops click from bubbling to MiniPlayer
+                handleClose();
+            }} 
+            className="absolute top-4 right-4 text-2xl"
+          >
+            ✖️
+          </button>
           
           <img src={track.image} alt={track.title} className="w-64 h-64 rounded-lg mb-4" />
           <h2 className="text-2xl font-bold">{track.title}</h2>
@@ -30,15 +39,7 @@ const Player = ({handleClose}) => {
             <button onClick={() => seek(currentTime + 10)}>⏩ 10s</button>
           </div>
     
-          <button 
-            onClick={(e) => {
-                e.stopPropagation(); // 👈 Stops click from bubbling to MiniPlayer
-                handleClose();
-            }} 
-            className="right-4 text-2xl"
-        >
-            ✖️
-        </button>
+          
           {/* Volume */}
           <input 
             type="range" 

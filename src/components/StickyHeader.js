@@ -30,7 +30,7 @@ const StickyHeader = ({ title, titleRef }) => {
     <>
       {/* Sticky Header */}
       <div
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 ${
           scrolled ? `backdrop-blur-md border-b ${darkMode ? 'bg-[rgb(15,15,39)]/50 border-gray-600' : 'bg-white/50 border-gray-300' }` : "bg-transparent border-none"
         }`}
       >
