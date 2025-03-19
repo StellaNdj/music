@@ -6,8 +6,10 @@ const Player = ({handleClose}) => {
     const { track, isPlaying, togglePlayPause, currentTime, duration, seek, changeVolume } = usePlayer();
 
     return (
-        <div className="fixed inset-0 bg-gray-800 text-white flex flex-col items-center justify-center">
-          <button onClick={() => handleClose} className="absolute top-4 right-4 text-2xl">✖️</button>
+        <div className="fixed inset-0 bg-gray-800 text-white flex flex-col items-center justify-center z-[999] pb-10"
+        onClick={(e) => e.stopPropagation()} 
+        >
+          
           <img src={track.image} alt={track.title} className="w-64 h-64 rounded-lg mb-4" />
           <h2 className="text-2xl font-bold">{track.title}</h2>
           <p className="text-sm opacity-75">{track.artist}</p>
@@ -28,6 +30,15 @@ const Player = ({handleClose}) => {
             <button onClick={() => seek(currentTime + 10)}>⏩ 10s</button>
           </div>
     
+          <button 
+            onClick={(e) => {
+                e.stopPropagation(); // 👈 Stops click from bubbling to MiniPlayer
+                handleClose();
+            }} 
+            className="right-4 text-2xl"
+        >
+            ✖️
+        </button>
           {/* Volume */}
           <input 
             type="range" 
@@ -38,6 +49,7 @@ const Player = ({handleClose}) => {
             onChange={(e) => changeVolume(e.target.value)} 
             className="w-32 mt-4"
           />
+
         </div>
       );
 
