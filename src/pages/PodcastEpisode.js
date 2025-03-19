@@ -3,12 +3,14 @@ import { getPodcastEpisode } from "../Api";
 import { AuthContext } from "../contexts/AuthContext";
 import { useParams } from "react-router-dom";
 import StickyHeader from "../components/StickyHeader";
+import { usePlayer } from "../contexts/PlayerContext";
 
 const PodcastEpisode = () => {
     const [podcastEpisode, setPodcastEpisode] = useState();
     const { token } = useContext(AuthContext);
     const { id } = useParams();
     const titleRef = useRef(null);
+    const { playTrack } = usePlayer();
 
     useEffect(() => {
         const getPodcastEpisodeInfos = async () => {
@@ -50,7 +52,18 @@ const PodcastEpisode = () => {
                     <p>{podcastEpisode.release_date}</p>
                     <p>{formatDuration(podcastEpisode.duration_ms)}</p>
                     <p>{podcastEpisode.description}</p>
-                    <p>{podcastEpisode.audio_preview_url}</p>
+                    <div>
+                        {podcastEpisode.audio_preview_url ? 
+                            <button onClick={() => playTrack({ 
+                                title: podcastEpisode.name, 
+                                artist: podcastEpisode.show?.name, 
+                                preview_url: podcastEpisode.audio_preview_url, 
+                                image: podcastEpisode.images[0].url 
+                            })}>
+                                ▶️ Play Preview
+                            </button>: 
+                        <p>No preview</p>}
+                    </div>
                     <p>{podcastEpisode.explicit ? 'Explicit' : ''}</p>
                 </div>
             </div>

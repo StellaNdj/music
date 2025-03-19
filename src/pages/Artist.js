@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import Navbar from "../components/Navbar";
 import { useParams } from 'react-router-dom';
 import { getArtist, getArtistAlbums, getArtistTopTrakcs } from "../Api";
 import { AuthContext } from "../contexts/AuthContext";

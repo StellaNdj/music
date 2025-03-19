@@ -11,24 +11,29 @@ import Audiobook from './pages/Audiobook';
 import PodcastEpisode from './pages/PodcastEpisode';
 import AudiobookChapter from './pages/AudiobookChapter';
 import Layout from './components/Layout';
+import { PlayerProvider } from './contexts/PlayerContext';
+import MiniPlayer from './components/MiniPlayer';
 
 function App() {
   return (
     <Router>
       <AuthContextProvider>
         <DarkModeContextProvider>
-          <Routes>
-            <Route element={<Layout/>  }>
-              <Route path='/' element={<Home />} />
-              <Route path='/artist/:id' element={<Artist/>}/>
-              <Route path='/album/:id' element={<Album/>} />
-              <Route path='/search' element={<Search/>}/>
-              <Route path='/podcast/:id' element={<Podcast/>} />
-              <Route path='/audiobook/:id' element={<Audiobook/> } />
-              <Route path='/podcast/episode/:id' element={<PodcastEpisode/> } />
-              <Route path='/audiobook/chapter/:id' element={<AudiobookChapter/>}  />
-            </Route>
-          </Routes>
+          <PlayerProvider>
+            <Routes>
+              <Route element={<Layout/>  }>
+                <Route path='/' element={<Home />} />
+                <Route path='/artist/:id' element={<Artist/>}/>
+                <Route path='/album/:id' element={<Album/>} />
+                <Route path='/search' element={<Search/>}/>
+                <Route path='/podcast/:id' element={<Podcast/>} />
+                <Route path='/audiobook/:id' element={<Audiobook/> } />
+                <Route path='/podcast/episode/:id' element={<PodcastEpisode/> } />
+                <Route path='/audiobook/chapter/:id' element={<AudiobookChapter/>}  />
+              </Route>
+            </Routes>
+            <MiniPlayer/>
+          </PlayerProvider>
         </DarkModeContextProvider>
       </AuthContextProvider>
     </Router>
