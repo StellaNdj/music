@@ -42,21 +42,23 @@ const Audiobook = () => {
 
     return(
         <>
-            <div className="mx-2 overflow-auto pb-16">
-                <StickyHeader title={audiobook.name} titleRef={titleRef}/>
+            <div className="overflow-auto pb-16">
+                <div className="">
+                    <StickyHeader title={audiobook.name} titleRef={titleRef}/>
 
-                <TopSection more={more} setMore={setMore} titleRef={titleRef} limitChar={limitChar} name={audiobook.name} publisher={audiobook.publisher} description={audiobook.description} imageUrl={audiobook.images[0]?.url} />
-            </div>
-            <div className="mx-2">
-                {audiobook.chapters.items.map((chapter) => 
-                    <div key={chapter.id} onClick={() => goToAudiobookChapter(chapter.id)} className='flex hover:bg-gray-500 cursor-pointer p-4 rounded-lg'>
-                        {chapter.images[0]?.url ? <img src={chapter.images[0]?.url} alt={chapter.image} className='w-20 h-20 rounded-lg'/> : <p>No image available</p>}
-                        <div className="ml-2">
-                            <p className="font-bold">{limitChar(chapter.name, 30)}</p>
-                            <p>{formatDuration(chapter.duration_ms)}</p>
+                    <TopSection more={more} setMore={setMore} titleRef={titleRef} limitChar={limitChar} name={audiobook.name} publisher={audiobook.publisher} description={audiobook.description} imageUrl={audiobook.images[0]?.url} />
+                </div>
+                <div className="mx-2">
+                    {audiobook.chapters.items.map((chapter) => 
+                        <div key={chapter.id} onClick={() => goToAudiobookChapter(chapter.id)} className='flex hover:bg-gray-500 cursor-pointer p-4 rounded-lg'>
+                            {chapter.images[0]?.url ? <img src={chapter.images[0]?.url} alt={chapter.image} className='w-20 h-20 rounded-lg'/> : <p>No image available</p>}
+                            <div className="ml-2">
+                                <p className="font-bold">{limitChar(chapter.name, 30)}</p>
+                                <p className="text-sm">{formatDuration(chapter.duration_ms)}</p>
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
         </>
     )

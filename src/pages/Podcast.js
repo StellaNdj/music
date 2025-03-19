@@ -42,7 +42,7 @@ const Podcast = () => {
 
     return(
         <>
-            <div className="mx-2 overflow-auto pb-16">
+            <div className="overflow-auto pb-16">
                 <StickyHeader title={podcast.name} titleRef={titleRef}/>
 
                 <TopSection more={more} name={podcast.name} titleRef={titleRef} publisher={podcast.publisher} imageUrl={podcast.images[0]?.url} limitChar={limitChar} description={podcast.description} setMore={setMore} />
