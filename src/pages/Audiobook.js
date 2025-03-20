@@ -42,7 +42,7 @@ const Audiobook = () => {
 
     return(
         <>
-            <div className="overflow-auto pb-16">
+            <div className="overflow-auto pb-36">
                 <div className="">
                     <StickyHeader title={audiobook.name} titleRef={titleRef}/>
 

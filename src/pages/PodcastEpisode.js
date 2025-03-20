@@ -31,14 +31,17 @@ const PodcastEpisode = () => {
         return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`
     }
 
+    const limitChar = (string, max_length) => {
+        return string.length > max_length ? string.slice(0, max_length) + '..' : string;
+    }
 
     if (!podcastEpisode) return <p>Loading...</p>
 
     return (
         <>
-            <div className="overflow-auto pb-16">
+            <div className="overflow-auto pb-36">
                 <div>
-                    <StickyHeader title={podcastEpisode.name} titleRef={titleRef} />
+                    <StickyHeader title={limitChar(podcastEpisode.name, 40)} titleRef={titleRef} />
                     <div
                         className="w-full h-60 flex items-center bg-cover bg-center relative"
                         style={{ backgroundImage: `url(${podcastEpisode.images[0]?.url})` }}
@@ -56,7 +59,7 @@ const PodcastEpisode = () => {
                     <div>
                         {podcastEpisode.audio_preview_url ? 
                             <button onClick={() => playTrack({ 
-                                title: podcastEpisode.name, 
+                                title: limitChar(podcastEpisode.name,30), 
                                 artist: podcastEpisode.show?.name, 
                                 preview_url: podcastEpisode.audio_preview_url, 
                                 image: podcastEpisode.images[0].url 

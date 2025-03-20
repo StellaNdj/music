@@ -28,7 +28,7 @@ const Album = () => {
 
     return (
         <>
-            <div className="mx-2 overflow-auto pb-16">
+            <div className="mx-2 overflow-auto pb-36">
                 <StickyHeader title={album.name} titleRef={titleRef}/> 
 
                 <div className="flex flex-col md:flex-row  p-4">
