@@ -4,6 +4,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useParams } from "react-router-dom";
 import StickyHeader from "../components/StickyHeader";
 import { usePlayer } from "../contexts/PlayerContext";
+import { PlayIcon } from "@heroicons/react/24/outline";
 
 const PodcastEpisode = () => {
     const [podcastEpisode, setPodcastEpisode] = useState();
@@ -48,7 +49,7 @@ const PodcastEpisode = () => {
                         </div>
                     </div>
                 </div>
-                <div className='mx-2'>
+                <div className='mx-2 p-2'>
                     <p>{podcastEpisode.release_date}</p>
                     <p>{formatDuration(podcastEpisode.duration_ms)}</p>
                     <p>{podcastEpisode.description}</p>
@@ -59,8 +60,10 @@ const PodcastEpisode = () => {
                                 artist: podcastEpisode.show?.name, 
                                 preview_url: podcastEpisode.audio_preview_url, 
                                 image: podcastEpisode.images[0].url 
-                            })}>
-                                ▶️ Play Preview
+                            })}
+                                className="flex hover:bg-gray-500 rounded-full p-1"
+                            >
+                                <PlayIcon className="size-6"/> Play Preview
                             </button>: 
                         <p>No preview</p>}
                     </div>

@@ -7,7 +7,7 @@ import Player from "./Player";
 const Layout = () => {
     const [showFullPlayer, setShowFullPlayer] = useState(false);
     return (
-        <div>
+        <div className="">
             <Outlet/>
             <MiniPlayer handleOpen={() => setShowFullPlayer(true)}/>
             <Navbar/>
